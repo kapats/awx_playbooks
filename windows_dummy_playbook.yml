@@ -16,10 +16,10 @@
           inputs:
             db_pass: "{{ secret }}"
 
-- name: Demo playbook
+- name: Windows dummy task
   hosts: public_tests
 
   tasks:
     - name: Show the output
       debug:
-        msg: "The test message"
+        msg: "The secret is {{ secret }}"
