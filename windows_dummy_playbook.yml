@@ -1,0 +1,8 @@
+---
+- name: Demo playbook
+  hosts: windows
+
+  tasks:
+    - name: Show the output
+      debug:
+        msg: "The test message"
