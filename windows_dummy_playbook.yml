@@ -1,6 +1,6 @@
 ---
 - name: Demo playbook
-  hosts: windows
+  hosts: public_tests
 
   tasks:
     - name: Show the output
