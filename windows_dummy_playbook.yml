@@ -3,9 +3,12 @@
   hosts: localhost
   gather_facts: False
   tasks:
-    - name: get secret
+    - name: get secrets for each host
       set_fact:
-        secret: "{{ lookup('aws_ssm', '/tests/karol/ansible_secret', region='eu-central-1') }}"
+        host_secret: "{{ lookup('aws_ssm', '/tests/karol/' + item, region='eu-central-1') }}"
+      loop: "{{ groups['public_tests'] }}"
+      register: secrets
+      run_once: true
 
 - name: Set secret on hosts
   hosts: public_tests
@@ -13,11 +16,12 @@
   tasks:
     - name: set secret
       set_fact:
-        secret: "{{ hostvars['localhost'].secret }}"
-      
-- name: Windows dummy task
+        secret: "{{ hostvars['localhost'].secrets.results | selectattr('item', 'equalto', inventory_hostname) | map(attribute='ansible_facts.host_secret') | first }}"
+
+- name: Print host name and secret
   hosts: public_tests
+  gather_facts: False
   tasks:
     - name: Show the output
       debug:
-        msg: "The secret is {{ secret }}"
+        msg: "The secret for {{ inventory_hostname }} is {{ secret }}"
