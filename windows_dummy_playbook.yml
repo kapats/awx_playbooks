@@ -5,6 +5,8 @@
       - name: get secret
         set_fact:
           secret: "{{ lookup('aws_ssm', '/tests/karol/ansible_secret', region='eu-central-1') }}"
+        delegate_to: "{{ item }}"
+        loop: "{{ groups['public_tests'] }}"
 
       - name: Add secret to credential store
         awx.awx.credential:
