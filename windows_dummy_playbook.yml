@@ -25,3 +25,11 @@
     - name: Show the output
       debug:
         msg: "The secret for {{ inventory_hostname }} is {{ secret }}"
+
+- name: Print all results
+  hosts: public_tests
+  gather_facts: False
+  tasks:
+    - name: Show the output
+      debug:
+        msg: "{{ hostvars['localhost'].secrets.results }}"
