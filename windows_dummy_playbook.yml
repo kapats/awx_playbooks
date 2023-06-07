@@ -26,10 +26,6 @@
       win_shell: hostname
       register: system_hostname
 
-    - name: Get system uptime
-      win_uptime:
-      register: system_uptime
-
     - name: Get OS name
       win_shell: (Get-WmiObject -Class Win32_OperatingSystem).Caption
       register: os_name
@@ -40,7 +36,7 @@
 
     - name: Show the output
       debug:
-        msg: "The secret for {{ inventory_hostname }} is {{ secret }}. The hostname is {{ system_hostname.stdout }} and the uptime is {{ system_uptime.uptime }}. The OS name is {{ os_name.stdout }} and the total memory is {{ total_memory.stdout }}"
+        msg: "The secret for {{ inventory_hostname }} is {{ secret }}. The hostname is {{ system_hostname.stdout }}. The OS name is {{ os_name.stdout }} and the total memory is {{ total_memory.stdout }}"
 
 - name: Print all results
   hosts: tenant_ansible_tests
