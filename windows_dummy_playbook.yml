@@ -18,13 +18,29 @@
       set_fact:
         secret: "{{ hostvars['localhost'].secrets.results | selectattr('item', 'equalto', inventory_hostname) | map(attribute='ansible_facts.host_secret') | first }}"
 
-- name: Print host name and secret
+- name: Print host info and secret
   hosts: public_tests
   gather_facts: False
   tasks:
+    - name: Get hostname
+      win_shell: hostname
+      register: system_hostname
+
+    - name: Get system uptime
+      win_uptime:
+      register: system_uptime
+
+    - name: Get OS name
+      win_shell: (Get-WmiObject -Class Win32_OperatingSystem).Caption
+      register: os_name
+
+    - name: Get total system memory
+      win_shell: (Get-WmiObject -Class Win32_ComputerSystem).TotalPhysicalMemory
+      register: total_memory
+
     - name: Show the output
       debug:
-        msg: "The secret for {{ inventory_hostname }} is {{ secret }}"
+        msg: "The secret for {{ inventory_hostname }} is {{ secret }}. The hostname is {{ system_hostname.stdout }} and the uptime is {{ system_uptime.uptime }}. The OS name is {{ os_name.stdout }} and the total memory is {{ total_memory.stdout }}"
 
 - name: Print all results
   hosts: tenant_ansible_tests
