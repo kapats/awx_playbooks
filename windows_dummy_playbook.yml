@@ -22,16 +22,16 @@
   hosts: tenant_ansible_tests
   gather_facts: False
   tasks:
-#     - name: Get hostname
-#       win_command: hostname
-#       register: system_hostname
+    - name: Get hostname
+      win_command: "hostname"
+      register: system_hostname
 
     - name: Get OS name
-      win_shell: (Get-WmiObject -Class Win32_OperatingSystem).Caption
+      win_shell: "(Get-WmiObject -Class Win32_OperatingSystem).Caption"
       register: os_name
 
     - name: Get total system memory
-      win_shell: (Get-WmiObject -Class Win32_ComputerSystem).TotalPhysicalMemory
+      win_shell: "(Get-WmiObject -Class Win32_ComputerSystem).TotalPhysicalMemory"
       register: total_memory
 
     - name: Show the output
