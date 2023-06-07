@@ -10,13 +10,13 @@
       register: secrets
       run_once: true
 
-- name: Set secret on hosts
-  hosts: tenant_ansible_tests
-  gather_facts: False
-  tasks:
-    - name: set secret
-      set_fact:
-        secret: "{{ hostvars['localhost'].secrets.results | selectattr('item', 'equalto', inventory_hostname) | map(attribute='ansible_facts.host_secret') | first }}"
+# - name: Set secret on hosts
+#   hosts: tenant_ansible_tests
+#   gather_facts: False
+#   tasks:
+#     - name: set secret
+#       set_fact:
+#         secret: "{{ hostvars['localhost'].secrets.results | selectattr('item', 'equalto', inventory_hostname) | map(attribute='ansible_facts.host_secret') | first }}"
 
 - name: Print host info and secret
   hosts: tenant_ansible_tests
