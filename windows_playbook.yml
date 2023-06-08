@@ -55,3 +55,7 @@
     - name: Show the output
       debug:
         msg: "{{ hostvars['localhost'].secrets.results }}"
+
+    - name: Print shared secret
+      debug:
+        msg: "{{ shared_secret }}"
