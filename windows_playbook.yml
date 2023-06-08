@@ -1,7 +1,7 @@
 ---
 - name: Get password from SSM
   hosts: localhost
-  gather_facts: False
+  gather_facts: True
   tasks:
     - name: get secrets for each host
       set_fact:
