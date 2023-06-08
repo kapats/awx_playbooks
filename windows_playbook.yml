@@ -18,33 +18,33 @@
 #       set_fact:
 #         secret: "{{ hostvars['localhost'].secrets.results | selectattr('item', 'equalto', inventory_hostname) | map(attribute='ansible_facts.host_secret') | first }}"
 
-- name: Print host info and secret
-  hosts: tenant_ansible_tests
-  gather_facts: False
-  tasks:
-    - name: Get hostname
-      win_command: "hostname"
-      register: system_hostname
+# - name: Print host info and secret
+#   hosts: tenant_ansible_tests
+#   gather_facts: False
+#   tasks:
+#     - name: Get hostname
+#       win_command: "hostname"
+#       register: system_hostname
 
-    - name: Get OS name
-      win_shell: "(Get-WmiObject -Class Win32_OperatingSystem).Caption"
-      register: os_name
+#     - name: Get OS name
+#       win_shell: "(Get-WmiObject -Class Win32_OperatingSystem).Caption"
+#       register: os_name
 
-    - name: Get total system memory
-      win_shell: "(Get-WmiObject -Class Win32_ComputerSystem).TotalPhysicalMemory"
-      register: total_memory
+#     - name: Get total system memory
+#       win_shell: "(Get-WmiObject -Class Win32_ComputerSystem).TotalPhysicalMemory"
+#       register: total_memory
 
-    - name: Show the output
-      debug:
-        msg: "The hostname is {{ system_hostname.stdout }}. The OS name is {{ os_name.stdout }} and the total memory is {{ total_memory.stdout }}"
+#     - name: Show the output
+#       debug:
+#         msg: "The hostname is {{ system_hostname.stdout }}. The OS name is {{ os_name.stdout }} and the total memory is {{ total_memory.stdout }}"
         
-    - name: Get whoami information
-      ansible.windows.win_whoami:
-      register: whoami_output
+#     - name: Get whoami information
+#       ansible.windows.win_whoami:
+#       register: whoami_output
 
-    - name: Show the whoami output
-      debug:
-        msg: "{{ whoami_output }}"
+#     - name: Show the whoami output
+#       debug:
+#         msg: "{{ whoami_output }}"
 
 
 
@@ -52,9 +52,9 @@
   hosts: tenant_ansible_tests
   gather_facts: False
   tasks:
-    - name: Show the output
-      debug:
-        msg: "{{ hostvars['localhost'].secrets.results }}"
+    # - name: Show the output
+    #   debug:
+    #     msg: "{{ hostvars['localhost'].secrets.results }}"
 
     - name: Print shared secret
       debug:
