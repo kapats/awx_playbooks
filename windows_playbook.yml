@@ -1,14 +1,14 @@
----
-- name: Get password from SSM
-  hosts: localhost
-  gather_facts: yes
-  tasks:
-    - name: get secrets for each host
-      set_fact:
-        host_secret: "{{ lookup('aws_ssm', '/tests/karol/' + item, region='eu-central-1') }}"
-      loop: "{{ groups['public_tests'] }}"
-      register: secrets
-      run_once: true
+# ---
+# - name: Get password from SSM
+#   hosts: localhost
+#   gather_facts: yes
+#   tasks:
+#     - name: get secrets for each host
+#       set_fact:
+#         host_secret: "{{ lookup('aws_ssm', '/tests/karol/' + item, region='eu-central-1') }}"
+#       loop: "{{ groups['public_tests'] }}"
+#       register: secrets
+#       run_once: true
 
 # - name: Set secret on hosts
 #   hosts: tenant_ansible_tests
@@ -56,6 +56,10 @@
     #   debug:
     #     msg: "{{ hostvars['localhost'].secrets.results }}"
 
-    - name: Print shared secret
+    - name: Print all facts
       debug:
         msg: "{{ ansible_facts }}"
+
+    - name: Print shared secret
+      debug:
+        msg: "{{ shared_secret }}"
