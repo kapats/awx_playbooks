@@ -58,4 +58,4 @@
 
     - name: Print shared secret
       debug:
-        msg: "{{ ansible_facts }}"
+        msg: "{{ shared_secret }}"
