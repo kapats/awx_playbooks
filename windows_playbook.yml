@@ -50,7 +50,7 @@
 
 - name: Print all results
   hosts: tenant_ansible_tests
-  gather_facts: False
+  gather_facts: True
   tasks:
     # - name: Show the output
     #   debug:
