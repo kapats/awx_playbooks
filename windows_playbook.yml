@@ -1,25 +1,6 @@
-# ---
-# - name: Get password from SSM
-#   hosts: localhost
-#   gather_facts: yes
-#   tasks:
-#     - name: get secrets for each host
-#       set_fact:
-#         host_secret: "{{ lookup('aws_ssm', '/tests/karol/' + item, region='eu-central-1') }}"
-#       loop: "{{ groups['public_tests'] }}"
-#       register: secrets
-#       run_once: true
-
-# - name: Set secret on hosts
-#   hosts: tenant_ansible_tests
-#   gather_facts: False
-#   tasks:
-#     - name: set secret
-#       set_fact:
-#         secret: "{{ hostvars['localhost'].secrets.results | selectattr('item', 'equalto', inventory_hostname) | map(attribute='ansible_facts.host_secret') | first }}"
-
 - name: Print host info and secret
   hosts: tenant_ansible_tests
+  strategy = free
   gather_facts: False
   tasks:
     - name: Get hostname
@@ -45,16 +26,7 @@
     - name: Show the whoami output
       debug:
         msg: "{{ whoami_output }}"
-        
+
     - name: Print shared secret
       debug:
         msg: "{{ shared_secret }}"
-
-
-# - name: Print all results
-#   hosts: localhost
-#   gather_facts: False
-#   tasks:
-#     - name: Print shared secret
-#       debug:
-#         msg: "{{ shared_secret }}"
