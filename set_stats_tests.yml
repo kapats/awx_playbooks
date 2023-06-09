@@ -13,7 +13,6 @@
         per_host: no
 
 
----
 - hosts: localhost
   gather_facts: no
 
