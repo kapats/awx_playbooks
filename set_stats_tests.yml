@@ -1,19 +1,23 @@
+---
 - hosts: localhost
   gather_facts: yes
-
-  vars:
-    var1: value1
-    var2: value2
 
   tasks:
     - name: Do nothing, just that ansible ran, and ping
       ping:
 
-    - name: Set some stat
-      ansible.builtin.set_stats::
+    - name: Set a stat
+      ansible.builtin.set_stats:
         data:
           my_stat: "test"
+        per_host: no
 
+
+---
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
     - name: Print the stat
       debug:
-        var: my_stat
+        msg: "The stat value was {{ ansible_run_stats['localhost']['my_stat'] | default('No stat found') }}"
