@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: Print the stat
+      debug:
+        msg: "The stat value is {{ my_stat }}"
