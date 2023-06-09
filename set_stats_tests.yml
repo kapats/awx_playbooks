@@ -10,7 +10,7 @@
       ping:
 
     - name: Set some stat
-      set_stats:
+      ansible.builtin.set_stats::
         data:
           my_stat: "test"
 
